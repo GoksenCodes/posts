@@ -1,7 +1,8 @@
 <ng-container *ngIf="(posts$ | async)">
   <form [formGroup]="userIdForm" #form="ngForm">
+    <label>Filter by user</label>
     <select class="posts-dropdown" (change)="updatePostsView($event)" formControlName="userId">
-      <option>All</option>
+      <option [ngValue]="null" selected>All users</option>
       <option *ngFor="let userId of userIds$ | async" [ngValue]="userId">
         {{userId}}
       </option>
