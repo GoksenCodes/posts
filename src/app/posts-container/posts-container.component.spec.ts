@@ -4,10 +4,13 @@ import { ApiService } from '../services/api.service';
 
 import { PostsContainerComponent } from './posts-container.component';
 import { FormBuilder } from '@angular/forms';
+import { mockPosts } from '../mock/mockPosts';
 
 describe('PostsContainerComponent', () => {
   let component: PostsContainerComponent;
   let fixture: ComponentFixture<PostsContainerComponent>;
+
+  const mockData = mockPosts
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

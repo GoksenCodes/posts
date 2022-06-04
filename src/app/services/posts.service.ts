@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class PostsService {
 
-  private posts$ = new BehaviorSubject<IPost[]>([])
+  public posts$ = new BehaviorSubject<IPost[]>([])
 
   constructor(
     private apiService: ApiService
