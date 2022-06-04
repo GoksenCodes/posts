@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Subject, EMPTY } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators'
+import { HttpErrorResponse } from '@angular/common/http/http';
 
 export interface IPost {
   id: number;
@@ -24,6 +27,8 @@ export class PostsContainerComponent implements OnInit {
     userId: [null, Validators.required]
   });
 
+  destroy$ = new Subject();
+
 
   constructor(
     public apiService: ApiService,
@@ -33,31 +38,20 @@ export class PostsContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPosts();
+    this.getPostsFromService();
   }
 
-  getPosts() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(async response => {
-        const data = await response.json();
-        this.posts = data;
-        this.filteredPosts = data;
+  ngOnDestroy() {
+    this.destroy$.next(true);
+  }
+
+  getPostsFromService() {
+    this.apiService.getPosts().pipe(
+      takeUntil(this.destroy$))
+      .subscribe((posts: IPost[]) => {
+        this.posts = posts;
+        this.filteredPosts = posts;
         this.userIds = [... new Set(this.posts.map(post => post.userId))]
-
-        if ((data && data.message) || !response.ok) {
-          // get error message from body or default to response status
-          const error = response.status;
-          return Promise.reject(error);
-        }
-
-        console.log(this.userIds)
-
-        return this.posts;
-
-      })
-      .catch(error => {
-        console.error(error)
-        alert('Something went wrong, please refresh the page')
       })
   }
 
@@ -70,7 +64,7 @@ export class PostsContainerComponent implements OnInit {
   }
 
   updatePostsView(e: any) {
-    this.userId ?.setValue(e.target.value, {
+    this.userId!.setValue(e.target.value, {
       onlySelf: true,
     });
 

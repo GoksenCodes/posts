@@ -1,4 +1,4 @@
-<ng-container *ngIf="posts.length">
+<ng-container *ngIf="posts.length > 0">
   <form [formGroup]="userIdForm" #form="ngForm">
     <select class="posts-dropdown" (change)="updatePostsView($event)" formControlName="userId">
       <option value="">All</option>
