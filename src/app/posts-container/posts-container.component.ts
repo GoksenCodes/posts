@@ -7,9 +7,9 @@ import { HttpErrorResponse } from '@angular/common/http/http';
 
 export interface IPost {
   id: number;
-  title: 'foo',
-  body: 'bar',
-  userId: 1
+  title: string,
+  body: string,
+  userId: number
 }
 
 @Component({
