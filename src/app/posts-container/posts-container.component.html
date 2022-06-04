@@ -1,15 +1,15 @@
-<ng-container *ngIf="filteredPosts.length > 0">
+<ng-container *ngIf="(posts$ | async)">
   <form [formGroup]="userIdForm" #form="ngForm">
     <select class="posts-dropdown" (change)="updatePostsView($event)" formControlName="userId">
-      <option value="">All</option>
-      <option *ngFor="let userId of userIds" [ngValue]="userId">
+      <option>All</option>
+      <option *ngFor="let userId of userIds$ | async" [ngValue]="userId">
         {{userId}}
       </option>
     </select>
   </form>
 
   <mat-grid-list cols="5" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let post of filteredPosts">
+    <mat-grid-tile *ngFor="let post of filteredPosts$ | async">
 
       <app-post [post]="post">
       </app-post>

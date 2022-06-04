@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject, EMPTY } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators'
-import { HttpErrorResponse } from '@angular/common/http/http';
+import { Observable } from 'rxjs';
+import { PostsService } from '../services/posts.service';
 
 export interface IPost {
   id: number;
@@ -20,43 +18,31 @@ export interface IPost {
 
 export class PostsContainerComponent implements OnInit {
 
-  posts: IPost[] = [];
-  filteredPosts: IPost[] = [];
-  userIds: number[] = [];
+  public posts$!: Observable<IPost[]>;
+  public filteredPosts$!: Observable<IPost[]>;
+  public userIds$!: Observable<number[]>;
+
   userIdForm: FormGroup = this.fb.group({
     userId: [null, Validators.required]
   });
 
-  destroy$ = new Subject();
-
-
   constructor(
-    public apiService: ApiService,
+    public postsService: PostsService,
     private fb: FormBuilder
   ) {
 
   }
 
   ngOnInit(): void {
-    this.getPostsFromService();
-  }
+    this.posts$ = this.postsService.getPosts();
+    this.filteredPosts$ = this.postsService.getPosts();
+    this.userIds$ = this.postsService.getUniqueUserIds();
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-  }
-
-  getPostsFromService() {
-    this.apiService.getPosts().pipe(
-      takeUntil(this.destroy$))
-      .subscribe((posts: IPost[]) => {
-        this.posts = posts;
-        this.filteredPosts = posts;
-        this.userIds = [... new Set(this.posts.map(post => post.userId))]
-      })
+    this.postsService.init();
   }
 
   filterByUserId(userId: number) {
-    this.filteredPosts = this.posts.filter(post => post.userId === userId)
+    this.filteredPosts$ = this.postsService.getFilteredPostsByUserId(userId)
   }
 
   get userId() {
@@ -73,7 +59,7 @@ export class PostsContainerComponent implements OnInit {
     if (typeof selectedUserId === "number") {
       this.filterByUserId(selectedUserId);
     } else {
-      this.filteredPosts = this.posts;
+      this.filteredPosts$ = this.posts$;
     }
   }
 }
