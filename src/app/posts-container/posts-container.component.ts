@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export interface IPost {
   id: number;
-  title: 'foo',
-  body: 'bar',
-  userId: 1
+  title: string,
+  body: string,
+  userId: number;
 }
 
 @Component({
@@ -26,7 +25,6 @@ export class PostsContainerComponent implements OnInit {
 
 
   constructor(
-    public apiService: ApiService,
     private fb: FormBuilder
   ) {
 
