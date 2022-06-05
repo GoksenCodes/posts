@@ -1,27 +1,29 @@
-# Posts
+## POSTS APP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7.
+## Implementation
 
-## Development server
+In master branch data fetching and error handling logic is implemented in container component while in shared_state_rxjs data is stored in a service and data manipulation logic related to the posts is moved to a sepetare service so that the components consumes the data through posts service.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Libraries / Tools Used
 
-## Code scaffolding
+- Angular 13
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Setup
 
-## Build
+To install dependencies run:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+`npm install`
 
-## Running unit tests
+To run the app run:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`ng serve`
 
-## Running end-to-end tests
+To execute the unit tests via [Karma](https://karma-runner.github.io) run:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+`ng test`
 
-## Further help
+## Future Work
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Complete test coverage to achieve 90%
+2. Improve UX by displaying loader when data is loading
+
