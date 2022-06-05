@@ -43,7 +43,7 @@ export class PostsContainerComponent implements OnInit {
         this.userIds = [... new Set(this.posts.map(post => post.userId))]
 
         if ((data && data.message) || !response.ok) {
-          // get error message from body or default to response status
+
           const error = response.status;
           return Promise.reject(error);
         }
