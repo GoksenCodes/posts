@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostsContainerComponent } from './posts-container.component';
+import { FormBuilder } from '@angular/forms';
 
 describe('PostsContainerComponent', () => {
   let component: PostsContainerComponent;
@@ -8,9 +9,10 @@ describe('PostsContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostsContainerComponent ]
+      declarations: [PostsContainerComponent],
+      providers: [FormBuilder]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
