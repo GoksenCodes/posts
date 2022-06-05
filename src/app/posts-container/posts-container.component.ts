@@ -37,7 +37,6 @@ export class PostsContainerComponent implements OnInit {
     this.posts$ = this.postsService.getPosts();
     this.filteredPosts$ = this.postsService.getPosts();
     this.userIds$ = this.postsService.getUniqueUserIds();
-
     this.postsService.init();
   }
 

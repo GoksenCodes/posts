@@ -1,21 +1,37 @@
-<ng-container *ngIf="(posts$ | async)">
-  <form [formGroup]="userIdForm">
-    <label>Filter by user</label>
-    <select class="posts-dropdown" (change)="updatePostsView($event)" formControlName="userId">
-      <option [ngValue]="null" selected>All users</option>
-      <option *ngFor="let userId of userIds$ | async" [ngValue]="userId">
-        {{userId}}
-      </option>
-    </select>
-  </form>
+<ng-container *ngIf="(posts$ | async) as posts">
+  <section class="main">
+    <header>
+      <h1>Posts App</h1>
+      <ng-container *ngIf="posts.length > 0">
+        <div class="filter">
+          <span>Filter by user id</span>
 
-  <mat-grid-list cols="5" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let post of filteredPosts$ | async">
+          <form [formGroup]="userIdForm" #form="ngForm">
+            <select class="posts-dropdown" (change)="updatePostsView($event)" formControlName="userId">
+              <option [ngValue]="null" selected>All</option>
+              <option *ngFor="let userId of userIds$ | async" [ngValue]="userId">
+                {{userId}}
+              </option>
+            </select>
+          </form>
+        </div>
+      </ng-container>
 
-      <app-post [post]="post">
-      </app-post>
+    </header>
 
-    </mat-grid-tile>
-  </mat-grid-list>
+    <ng-container *ngIf="posts.length > 0">
+      <mat-grid-list cols="10" rowHeight="1:1">
+        <mat-grid-tile *ngFor="let post of filteredPosts$ | async">
 
+          <app-post [post]="post">
+          </app-post>
+
+        </mat-grid-tile>
+      </mat-grid-list>
+    </ng-container>
+
+    <footer>
+      <p>Posts App - No rights reserved.</p>
+    </footer>
+  </section>
 </ng-container>
