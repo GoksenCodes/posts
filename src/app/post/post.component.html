@@ -1,9 +1,16 @@
 <ng-container *ngIf="post">
-  <button mat-button (click)="toggleId()">
-    <span *ngIf="showUserId; else postId">UserId: {{post.userId}}</span>
-  </button>
+  <div class="post-container" (click)="toggleId()">
 
-  <ng-template #postId>
-    <span>PostId: {{post.id}}</span>
-  </ng-template>
+    <div class="post show-user" *ngIf="showUserId; else postId">
+      <label>UserID</label>
+      <h2>{{post.userId}}</h2>
+    </div>
+
+    <ng-template #postId>
+      <div class="post show-post">
+        <label>PostID</label>
+        <h2>{{post.id}}</h2>
+      </div>
+    </ng-template>
+  </div>
 </ng-container>

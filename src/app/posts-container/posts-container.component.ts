@@ -48,8 +48,6 @@ export class PostsContainerComponent implements OnInit {
           return Promise.reject(error);
         }
 
-        console.log(this.userIds)
-
         return this.posts;
 
       })
