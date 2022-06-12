@@ -34,6 +34,46 @@ export class PostsContainerComponent implements OnInit {
     this.getPosts();
   }
 
+  //promise then
+
+  // getPosts() {
+  //   fetch('https://jsonplaceholder.typicode.com/posts')
+  //     .then(res => {
+  //       return res.json();
+  //     }).then(data => {
+  //       if (data) {
+  //         this.posts = data;
+  //         this.filteredPosts = data;
+  //         this.userIds = [... new Set(this.posts.map(post => post.userId))]
+  //       }
+  //     }).catch(error => {
+  //       console.error(error);
+  //       alert('Something went wrong, please refresh the page')
+  //     })
+  // }
+
+
+  //async await with try catch
+
+  // async getPosts() {
+  //   try {
+  //     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+  //     const data = await response.json();
+
+  // if (data) {
+  //   this.posts = data;
+  //   this.filteredPosts = data;
+  //   this.userIds = [... new Set(this.posts.map(post => post.userId))]
+  // }
+
+  // } catch (error) {
+  //   console.error(error);
+  //   alert('Something went wrong, please refresh the page')
+
+  // }
+
+  // }
+
   getPosts() {
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(async response => {
@@ -42,9 +82,15 @@ export class PostsContainerComponent implements OnInit {
         this.filteredPosts = data;
         this.userIds = [... new Set(this.posts.map(post => post.userId))]
 
+        console.log("data", data)
+        console.log("response", response)
+
+        console.log('promise', Promise)
+
         if ((data && data.message) || !response.ok) {
 
           const error = response.status;
+          console.log(error)
           return Promise.reject(error);
         }
 
@@ -67,8 +113,15 @@ export class PostsContainerComponent implements OnInit {
 
   updatePostsView(e: any) {
     this.userId ?.setValue(e.target.value, {
-      onlySelf: true,
+      onlySelf: true
     });
+
+    //event target value returns string
+
+    //onlySelf: when true, each change only affects this control and not it's parent
+    // bydefault it's false: for example when this formcontrol is not valid, angular would make ahole form not valid
+    //by setting this as true, onlt this form control won't be valid.
+    //but here, it helps to get userId as number
 
     const selectedUserId = this.userIdForm.value.userId;
 

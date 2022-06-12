@@ -6,7 +6,7 @@ header {
       color: #999;
     }
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; //this doesn't work without width => workaround there is margin on dropdown
     align-items: center;
   }
 }
@@ -37,6 +37,7 @@ footer {
 }
 
 app-post {
+  // fill element to mat-grid list tile
   height: 100%;
   width: 100%;
 }
