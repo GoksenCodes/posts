@@ -1,6 +1,6 @@
 ## POSTS APP
 
-Angular application that uses jsonplaceholder API to fetch 100 posts.
+Angular application that uses placeholder API to fetch posts.
 
 - By default, show the post id,
 - When clicking on a square: replace the id with the userId
