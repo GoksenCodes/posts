@@ -33,5 +33,6 @@ To execute the unit tests via [Karma](https://karma-runner.github.io) run:
 ## Future Work
 
 1. Complete test coverage to achieve 90% in shared_state_rxjs.
-2. Improve UX by displaying loader when data is loading
+2. Create variables.scss for general styles (colors, fonts, layout rules) and use them in the component specific styling. 
+3. Improve UX by displaying loader when data is loading
 
